@@ -1,387 +1,1057 @@
+<!-- Version 12.2 -->
 <!DOCTYPE html>
 <html lang="de-AT" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LudumLearn | Digitales Spielzeug aus Wien</title>
+    <title>LudumLearn | Digitales Spielzeug & EdTech Wien</title>
+
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
       rel="stylesheet"
     />
+
     <style>
       body {
         font-family: "Plus Jakarta Sans", sans-serif;
       }
-      .glass {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-      }
+
+      /* Nice subtle background pattern */
       .hero-pattern {
-        background-color: #f8fafc;
+        background: radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.1),
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(234, 179, 8, 0.12),
+            transparent 50%
+          ),
+          #ffffff;
       }
-      .reviewer-border {
-        border-top: 10px solid #dc2626;
-      }
-      /* WCAG 2.2 AA Focus Styles */
-      :focus {
+
+      /* Focus styles for accessibility */
+      :focus-visible {
         outline: 3px solid #2563eb;
-        outline-offset: 4px;
+        outline-offset: 3px;
+        border-radius: 6px;
       }
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        border: 0;
+
+      /* Respect prefers-reduced-motion (WCAG 2.2) */
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within { scroll-behavior: auto; }
+        * {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
       }
+
     </style>
   </head>
-  <body class="bg-slate-50 text-slate-900 leading-relaxed">
-    <!-- Accessibility: Skip Link -->
+
+  <body class="bg-white text-slate-800">
+    <!-- Skip Link -->
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only bg-blue-600 text-white p-4 absolute z-50"
-      >Zum Hauptinhalt springen</a
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-lg z-50"
+      >Zum Inhalt springen</a
     >
 
     <!-- Navigation -->
     <nav
-      class="sticky top-0 z-50 w-full border-b border-slate-200 glass px-6 py-4"
+      class="sticky top-0 z-50 w-full border-b border-slate-100 bg-white/90 backdrop-blur"
+      aria-label="Hauptnavigation"
     >
-      <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-          <!-- SVG-Logo -->
-          <svg
-            width="35"
-            height="35"
-            viewBox="0 0 100 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"
+      >
+        <a href="#home" class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold"
             aria-hidden="true"
           >
-            <rect width="100" height="100" rx="20" fill="#2563eb" />
-            <path
-              d="M30 40C30 34.4772 34.4772 30 40 30H60C65.5228 30 70 34.4772 70 40V60C70 65.5228 65.5228 70 60 70H40C34.4772 70 30 65.5228 30 60V40Z"
-              fill="white"
-            />
-            <circle cx="42" cy="45" r="5" fill="#1e40af" />
-            <circle cx="58" cy="45" r="5" fill="#1e40af" />
-            <path d="M45 55L50 60L55 55H45Z" fill="#f59e0b" />
-          </svg>
-          <span class="text-2xl font-extrabold tracking-tight"
-            >Ludum<span class="text-blue-600">Learn</span></span
+            LL
+          </div>
+          <span class="font-extrabold tracking-tight text-xl text-slate-900"
+            >LudumLearn</span
           >
-        </div>
+        </a>
+
         <ul
-          class="hidden lg:flex space-x-6 font-medium text-slate-600 text-sm items-center"
+          class="hidden lg:flex space-x-4 font-medium text-slate-600 text-[13px] items-center text-left"
         >
           <li>
             <a href="#home" class="hover:text-blue-600 transition">Start</a>
           </li>
           <li>
-            <a href="#about" class="hover:text-blue-600 transition">Marke</a>
+            <a href="#about" class="hover:text-blue-600 transition">About</a>
+          </li>
+          <li>
+            <a href="#marks" class="hover:text-blue-600 transition">Marke</a>
+          </li>
+          <li>
+            <a href="#media" class="hover:text-blue-600 transition">Medien</a>
           </li>
           <li>
             <a href="#license" class="hover:text-blue-600 transition">Lizenz</a>
           </li>
           <li>
-            <a href="#contact" class="hover:text-blue-600 transition"
-              >Impressum</a
+            <a href="#privacy" class="hover:text-blue-600 transition"
+              >Datenschutz</a
             >
           </li>
           <li>
-            <a
-              href="#reviewer-section"
-              class="bg-red-50 text-red-600 px-5 py-2 rounded-full font-bold hover:bg-red-100 transition border border-red-200 uppercase tracking-tighter"
-              >Für Reviewer / Assignment</a
+            <a href="#contact" class="hover:text-blue-600 transition"
+              >Kontakt</a
+            >
+          </li>
+          <li>
+            <a href="#reviewer-section" class="hover:text-blue-600 transition"
+              >Prüfer:innen</a
             >
           </li>
         </ul>
+
+        <!-- Mobile nav anchor -->
+        <a
+          href="#contact"
+          class="lg:hidden bg-blue-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-blue-700 transition"
+          >Kontakt</a
+        >
       </div>
     </nav>
 
     <main id="main-content">
-      <!-- Hero Section (Text left, Image right) -->
-      <section id="home" class="hero-pattern pt-20 pb-32 px-6">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <!-- Left Column: Text -->
-          <div>
-            <h1 class="text-6xl font-extrabold text-slate-900 leading-tight">
-              Digitales Spielzeug für
+      <!-- HERO -->
+      <header id="home" class="hero-pattern pt-20 pb-32 px-6">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          <div class="text-left">
+            <p
+              class="inline-flex items-center gap-2 bg-slate-100 border border-slate-200 px-4 py-2 rounded-full text-xs font-bold text-slate-700"
+            >
               <span
-                class="text-blue-600 underline decoration-yellow-400 decoration-4 underline-offset-8"
-                >kleine Entdecker.</span
-              >
+                class="w-2 h-2 bg-emerald-500 rounded-full"
+                aria-hidden="true"
+              ></span>
+              Wiener EdTech-Startup · Software & Lernspiele
+            </p>
+
+            <h1
+              class="mt-6 text-4xl md:text-6xl font-extrabold leading-tight tracking-tight text-slate-900"
+            >
+              Digitales Spielzeug,
+              <span class="text-blue-600">das wirklich lehrt</span>.
             </h1>
-            <p class="text-lg text-slate-500 mt-8 max-w-lg">
-              LudumLearn kombiniert Wiener Pädagogik mit modernster Software.
-              Entdecken Sie unsere interaktiven Lernwelten.
+
+            <p class="mt-6 text-lg leading-relaxed text-slate-700 max-w-xl">
+              LudumLearn kombiniert Wiener Pädagogik mit spielerischer
+              Technologie. Unser Produkt
+              <strong>„LudumLearn Studio“</strong> hilft Kindern, Jugendlichen
+              und Bildungseinrichtungen dabei, Lernen als Abenteuer zu erleben —
+              offline & online.
             </p>
-            <div class="mt-10">
-              <button
-                class="bg-blue-600 text-white px-10 py-4 rounded-xl font-bold hover:bg-blue-700 shadow-xl shadow-blue-200 transition"
+
+            <div class="mt-10 flex flex-wrap gap-4">
+              <a
+                href="#about"
+                class="bg-blue-600 text-white px-6 py-3 rounded-2xl font-semibold hover:bg-blue-700 transition shadow-lg"
+                >Produkt entdecken</a
               >
-                Shop öffnen
-              </button>
+              <a
+                href="#license"
+                class="bg-white border border-slate-200 px-6 py-3 rounded-2xl font-semibold text-slate-800 hover:border-blue-400 hover:text-blue-600 transition"
+                >Lizenz & Rechte</a
+              >
+            </div>
+
+            <div class="mt-10 grid grid-cols-2 gap-4 max-w-md">
+              <div
+                class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm"
+              >
+                <p class="text-3xl font-extrabold text-slate-900">5</p>
+                <p class="text-sm text-slate-600">Mitarbeitende (Wien, AT)</p>
+              </div>
+
+              <div
+                class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm"
+              >
+                <p class="text-3xl font-extrabold text-slate-900">Hybrid</p>
+                <p class="text-sm text-slate-600">Freemium + Abo</p>
+              </div>
             </div>
           </div>
 
-          <!-- Right Column: Image -->
+          <!-- Media 1: Video (mocked as poster only) -->
           <div class="relative">
-            <img
-              src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=1000&auto=format&fit=crop"
-              alt="Ein kleines Kind spielt mit einem interaktiven Kamera-Spielzeug"
-              class="rounded-[2.5rem] shadow-2xl relative z-10 w-full h-auto object-cover border-[12px] border-white"
-            />
+            <div
+              class="bg-white rounded-3xl border border-slate-100 shadow-xl overflow-hidden"
+              aria-label="Produktvorschau"
+            >
+              <div class="p-6 bg-slate-50 border-b border-slate-100">
+                <p class="font-bold text-slate-800 text-left">Produkt Demo</p>
+                <p class="text-sm text-slate-600 text-left">
+                  Video (gemockt) — Vorschau als Bild.
+                </p>
+              </div>
+
+              <img
+                src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80"
+                alt="Kind spielt Lernspiel am Tablet (Symbolbild)"
+                class="w-full h-80 object-cover"
+                loading="lazy"
+              />
+
+              <div class="p-6">
+                <p class="text-sm text-slate-700 leading-relaxed text-left">
+                  „LudumLearn Studio“ ist eine Businessanwendung für Schulen und
+                  Familien: Lernstände, Aufgaben, Inhalte und Belohnungen — in
+                  einer einzigen Plattform.
+                </p>
+
+                <p class="mt-4 text-xs text-slate-500 text-left">
+                  Bildquelle: Unsplash (Lizenz: Unsplash License). Details in
+                  „Medien & Lizenzen“.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="absolute -bottom-6 -left-6 bg-amber-300 rounded-3xl w-24 h-24 blur-2xl"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="absolute -top-6 -right-6 bg-blue-300 rounded-3xl w-28 h-28 blur-2xl"
+              aria-hidden="true"
+            ></div>
           </div>
         </div>
-      </section>
+      </header>
 
-      <!-- BRAND SECTION -->
+      <!-- About / Task 0 -->
       <section id="about" class="py-16 px-6 bg-white">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
+          <div class="text-left">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Produkt, Unternehmen & Geschäftsmodell
+            </h2>
+
+            <p class="mt-6 text-slate-700 leading-relaxed">
+              <strong>Produkt:</strong> „LudumLearn Studio“ (Businessanwendung +
+              Lernspiel-Module). Ziel ist es, digitale Lerninhalte (Mathe,
+              Sprache, Technik) so aufzubereiten, dass sie spielerisch,
+              motivierend und messbar sind.
+            </p>
+
+            <ul class="mt-6 space-y-3 text-slate-700 leading-relaxed">
+              <li>
+                <strong>Funktionen:</strong> Nutzerkonten, Lernpfade, Quiz,
+                Badges, Fortschrittsstatistiken, Offline-Module,
+                Geräte-Synchronisation.
+              </li>
+              <li>
+                <strong>Zielgruppe:</strong> Familien, Schulen, Nachhilfe,
+                Bildungsinitiativen in Österreich.
+              </li>
+              <li>
+                <strong>Unternehmen:</strong> LudumLearn GmbH, Wien (AT), 5
+                Mitarbeitende.
+              </li>
+              <li>
+                <strong>Geschäftsmodell:</strong> Hybrid:
+                <em>Freemium</em> (Basis kostenlos) +
+                <em>Abonnement</em> (Premium-Funktionen).
+              </li>
+            </ul>
+
+            <div class="mt-8 flex flex-wrap gap-3">
+              <span
+                class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200"
+                >EdTech</span
+              >
+              <span
+                class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200"
+                >Wien</span
+              >
+              <span
+                class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200"
+                >Freemium</span
+              >
+              <span
+                class="px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200"
+                >Abo</span
+              >
+            </div>
+          </div>
+
+          <!-- Media 2: Stable Unsplash Image on the RIGHT -->
+          <div class="text-left">
+            <div
+              class="rounded-3xl overflow-hidden border border-slate-100 shadow-lg"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72?auto=format&fit=crop&w=1200&q=80"
+                alt="Team-Meeting im Büro (Symbolbild für Startup)"
+                class="w-full h-72 object-cover"
+                loading="lazy"
+              />
+              <div class="p-6 bg-white">
+                <p class="text-sm text-slate-700 leading-relaxed">
+                  Wir arbeiten mit lokalen Bildungspartnern in Österreich und
+                  legen Wert auf datensparsame, barrierefreie und rechtssichere
+                  Webshop-Prozesse (auch wenn Bestellprozesse hier nur gemockt
+                  sind).
+                </p>
+                <p class="mt-4 text-xs text-slate-500">
+                  Bildquelle: Unsplash (Lizenz: Unsplash License). Details in
+                  „Medien & Lizenzen“.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Task 3: Brand / Marks -->
+      <section
+        id="marks"
+        class="py-16 px-6 bg-slate-50 border-y border-slate-100 text-center"
+      >
         <div class="max-w-7xl mx-auto">
-          <h2 class="text-4xl font-bold text-center mb-16">Unsere Marken</h2>
-          <div class="grid md:grid-cols-3 gap-8">
-            <div
-              class="bg-slate-50 p-10 rounded-3xl border border-slate-100 text-center"
-            >
-              <span class="text-2xl font-black tracking-widest text-slate-800"
-                >LUDUMLEARN</span
-              >
-              <p class="text-xs mt-4 text-blue-600 font-bold">WORTMARKE</p>
-            </div>
-            <div
-              class="bg-slate-50 p-10 rounded-3xl border border-slate-100 text-center"
-            >
-              <div class="flex justify-center items-center space-x-2">
-                <svg width="30" height="30" viewBox="0 0 100 100">
-                  <rect width="100" height="100" rx="20" fill="#2563eb" />
-                  <path d="M30 40H70V60H30V40Z" fill="white" />
-                </svg>
-                <span class="font-bold">LudumLearn</span>
-              </div>
-              <p
-                class="text-xs mt-4 text-blue-600 font-bold uppercase tracking-tighter"
-              >
-                Wort-Bildmarke
-              </p>
-            </div>
-            <div
-              class="bg-slate-50 p-10 rounded-3xl border border-slate-100 text-center"
-            >
-              <div
-                class="w-10 h-10 bg-blue-600 rounded-xl mx-auto shadow-lg shadow-blue-200"
-              ></div>
-              <p
-                class="text-xs mt-4 text-blue-600 font-bold uppercase tracking-tighter"
-              >
-                Formmarke
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Media Showcase Section (Aufgabe 2) -->
-      <section id="media" class="py-24 px-6 bg-slate-50">
-        <div class="max-w-5xl mx-auto">
-          <h2
-            class="text-3xl font-bold mb-12 text-center text-slate-800 italic"
-          >
-            Multimediale Einblicke
+          <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Marke
           </h2>
-          <div class="grid md:grid-cols-2 gap-12">
-            <div class="space-y-4">
-              <h3 class="text-xl font-bold">Produkt-Trailer</h3>
-              <div
-                class="rounded-3xl overflow-hidden shadow-xl bg-black aspect-video"
-              >
-                <video controls class="w-full h-full">
-                  <source
-                    src="https://www.w3schools.com/html/mov_bbb.mp4"
-                    type="video/mp4"
-                  />
-                  Browser unterstützt Video nicht.
-                </video>
-              </div>
-            </div>
-            <div class="space-y-4">
-              <h3 class="text-xl font-bold">Sound-Identity</h3>
-              <div
-                class="bg-white p-12 rounded-3xl border border-slate-200 flex flex-col items-center justify-center min-h-[250px]"
-              >
-                <audio id="audioElement">
-                  <source
-                    src="https://www.soundjay.com/buttons/sounds/button-3.mp3"
-                    type="audio/mpeg"
-                  />
-                </audio>
-                <button
-                  onclick="document.getElementById('audioElement').play()"
-                  class="bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-black transition flex items-center space-x-2"
+          <p class="mt-4 text-slate-700 max-w-3xl mx-auto leading-relaxed">
+            Wir verwenden drei <strong>unterschiedliche Markenformen</strong>.
+            Wort-/Bildmarke zählt als eine Markenform. Zusätzlich zeigen wir
+            eine Formmarke (3D) sowie eine Hörmarke. Die Nizza-Klassen werden
+            passend zu Software und Bildungsdienstleistungen zugeordnet.
+          </p>
+
+          <div class="mt-12 grid md:grid-cols-3 gap-8 text-center">
+            <!-- Form 1: Wort-Bildmarke -->
+            <div
+              class="bg-white p-10 rounded-3xl border border-slate-100 flex flex-col items-center shadow-sm"
+            >
+              <div class="flex items-center space-x-2 mb-4">
+                <div
+                  class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xs"
                 >
-                  <span>▶ Sound abspielen</span>
-                </button>
+                  LL
+                </div>
+                <span class="font-bold text-xl text-slate-800 tracking-tighter"
+                  >LudumLearn</span
+                >
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Legal: Lizenz & Impressum -->
-      <section id="license" class="py-24 px-6 bg-slate-900 text-white">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
-          <div>
-            <h2 class="text-3xl font-bold mb-6 text-blue-400">
-              Software-Lizenz (EULA)
-            </h2>
-            <p class="text-slate-400 text-sm leading-relaxed">
-              Die Nutzung erfolgt als
-              <strong>Werknutzungsbewilligung gemäß § 24 UrhG</strong>.
-              LudumLearn behält alle Urheberrechte am Quellcode. Eine Haftung
-              für leichte Fahrlässigkeit wird ausgeschlossen (KSchG-konform).
-            </p>
-          </div>
-          <div id="contact">
-            <h2 class="text-3xl font-bold mb-6 text-blue-400">
-              Impressum (§ 24 MedG)
-            </h2>
-            <p class="text-sm text-slate-400 leading-relaxed mb-6">
-              <strong>LudumLearn GmbH</strong><br />
-              Wiedner Hauptstraße 105, 1040 Wien<br />
-              UID: ATU88776655 | HG Wien | WKO Wien<br />
-              <strong>Blattlinie:</strong> Förderung digitaler Bildung für
-              Kinder.
-            </p>
-
-            <!-- MISSING SECTION ADDED HERE -->
-            <div class="border-t border-slate-800 pt-6">
-              <h3 class="text-blue-400 font-bold mb-4">
-                Urheberrecht & Lizenzen
-              </h3>
-              <div
-                class="text-[11px] text-slate-400 space-y-2 uppercase tracking-wide"
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Wort-/Bildmarke für den Webshop und das Produkt.
+              </p>
+              <p
+                class="mt-6 text-xs text-blue-600 font-bold uppercase tracking-widest italic"
               >
-                <p>
-                  <strong>Bilder:</strong> Unsplash / Kelly Sikkema (Hero),
-                  Fakurian Design (Demo)
-                </p>
-                <p>
-                  <strong>Video:</strong> Pexels / Pressmaster (Free Video
-                  License)
-                </p>
-                <p>
-                  <strong>Sound:</strong> Pixabay / Audio_f3675f3c5b (Content
-                  License)
-                </p>
-                <p><strong>Grafik:</strong> Eigenentwurf (LudumLearn GmbH)</p>
-                <p>
-                  <strong>Fonts:</strong> Plus Jakarta Sans (Google Fonts - SIL
-                  OFL)
-                </p>
-                <p><strong>Texte:</strong> © 2024 LudumLearn GmbH</p>
-              </div>
+                Wort-/Bildmarke
+              </p>
             </div>
+
+            <!-- Form 2: Formmarke (3D) -->
+            <div
+              class="bg-white p-10 rounded-3xl border border-slate-100 flex flex-col items-center shadow-sm"
+            >
+              <div
+                class="w-20 h-20 rounded-3xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-4"
+                aria-label="3D Formmarke Symbol"
+              >
+                <svg
+                  class="w-10 h-10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 2L3 7V17L12 22L21 17V7L12 2Z"
+                    stroke="#2563eb"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M3 7L12 12L21 7"
+                    stroke="#2563eb"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 22V12"
+                    stroke="#2563eb"
+                    stroke-width="2"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Formmarke als 3D-Icon, z. B. für App-Icons und Sticker.
+              </p>
+              <p
+                class="mt-6 text-xs text-blue-600 font-bold uppercase tracking-widest italic"
+              >
+                Formmarke (3D)
+              </p>
+            </div>
+
+            <!-- Form 3: Hörmarke -->
+            <div
+              class="bg-white p-10 rounded-3xl border border-slate-100 flex flex-col items-center text-center shadow-sm"
+            >
+              <button
+                onclick="playBrandSound()"
+                class="mb-4 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:scale-110 transition cursor-pointer"
+                aria-label="Hörmarke abspielen"
+              >
+                <svg
+                  class="w-6 h-6"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke="#ffffff"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a2 2 0 01-2-2v-2a2 2 0 012-2h1.586l4.707-4.707A1 1 0 0112 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+                  />
+                </svg>
+              </button>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Kurzer Audio-Jingle (gemockt) für App-Start & Werbung.
+              </p>
+              <p
+                class="mt-6 text-xs text-blue-600 font-bold uppercase tracking-widest italic"
+              >
+                Hörmarke
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-12 bg-white border border-slate-100 rounded-3xl p-8">
+            <h3 class="text-xl font-extrabold text-slate-900">
+              Nizza-Klassen (Zuordnung)
+            </h3>
+            <p class="mt-3 text-slate-700 leading-relaxed">
+              <strong>Klasse 9</strong> (Software),
+              <strong>Klasse 41</strong> (Erziehung/Ausbildung), optional
+              <strong>Klasse 28</strong>
+              (Elektronisches Spielzeug / Spiele).
+            </p>
+            <p class="mt-4 text-xs text-slate-500">
+              Hinweis: Markenrecherche (z. B. EUIPO eSearch, TMview) erfolgt im
+              Rahmen der Übung und wird hier als Prozess beschrieben (keine
+              Rechtsberatung).
+            </p>
           </div>
         </div>
       </section>
 
-      <footer
-        class="bg-white border-t py-8 text-center text-xs text-slate-400 italic"
-      >
-        © 2024 LudumLearn GmbH — Wien, Österreich.
-      </footer>
+      <!-- Task 2: Media & Licenses -->
+      <section id="media" class="py-16 px-6 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Medien & Lizenzen
+    </h2>
+    <p class="mt-4 text-slate-700 max-w-3xl leading-relaxed">
+      In diesem Abschnitt dokumentieren wir transparent alle im Webshop verwendeten Medien,
+      deren Herkunft sowie die jeweiligen Nutzungs- und Lizenzbedingungen. Sämtliche Medien
+      werden ausschließlich illustrativ verwendet und stellen keine realen Produktabbildungen dar.
+    </p>
 
-      <!-- REVIEWER DEFENSE SECTION (DETAILED GERMAN) -->
-      <div
-        class="reviewer-border bg-red-600 text-white text-center py-6 font-black uppercase tracking-widest"
-      >
-        Ende des Mockups / Reviewer Section
+    <div class="mt-10 overflow-x-auto">
+      <table class="min-w-full border border-slate-200 rounded-2xl overflow-hidden">
+        <thead class="bg-slate-100">
+          <tr>
+            <th class="px-4 py-3 text-left text-xs font-bold text-slate-700 uppercase">Medienart</th>
+            <th class="px-4 py-3 text-left text-xs font-bold text-slate-700 uppercase">Quelle / Urheber</th>
+            <th class="px-4 py-3 text-left text-xs font-bold text-slate-700 uppercase">Lizenz</th>
+            <th class="px-4 py-3 text-left text-xs font-bold text-slate-700 uppercase">Nutzung</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-slate-200 text-sm text-slate-700">
+          <tr>
+            <td class="px-4 py-3">Bilder (Symbolbilder)</td>
+            <td class="px-4 py-3">Unsplash (verschiedene Fotograf:innen)</td>
+            <td class="px-4 py-3">Unsplash License</td>
+            <td class="px-4 py-3">
+              Illustrative Nutzung im Webshop; keine Produkt-Screenshots,
+              keine Bearbeitung, kommerzielle Nutzung zulässig.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3">Schriftart</td>
+            <td class="px-4 py-3">Plus Jakarta Sans (Google Fonts)</td>
+            <td class="px-4 py-3">SIL Open Font License (OFL)</td>
+            <td class="px-4 py-3">
+              Einbindung für Typografie; freie kommerzielle Nutzung erlaubt.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3">CSS-Framework</td>
+            <td class="px-4 py-3">Tailwind CSS (CDN)</td>
+            <td class="px-4 py-3">MIT License</td>
+            <td class="px-4 py-3">
+              Gestaltung und Layout; keine Modifikation der Lizenztexte.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3">Icons</td>
+            <td class="px-4 py-3">Inline SVG (eigen erstellt)</td>
+            <td class="px-4 py-3">Eigenes Werk</td>
+            <td class="px-4 py-3">
+              Nutzung als UI-Elemente und Markensymbole.
+            </td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3">Audio (Hörmarke)</td>
+            <td class="px-4 py-3">Web Audio API (synthetisch)</td>
+            <td class="px-4 py-3">Kein externes Werk</td>
+            <td class="px-4 py-3">
+              Kurzton zur Demonstration einer Hörmarke (gemockt).
+            </td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3">Texte</td>
+            <td class="px-4 py-3">LudumLearn GmbH</td>
+            <td class="px-4 py-3">Eigenes Werk</td>
+            <td class="px-4 py-3">
+              Produktbeschreibungen, Rechtstexte und Hinweise im Rahmen der Übung.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-8 bg-slate-50 border border-slate-200 rounded-2xl p-6">
+      <h3 class="font-extrabold text-slate-900 text-lg">
+        Hinweise zu Drittanbietern & Datenübermittlung
+      </h3>
+      <p class="mt-3 text-sm text-slate-700 leading-relaxed">
+        Die Einbindung von Google Fonts und Tailwind CSS über CDNs kann dazu führen,
+        dass beim Laden der Seite technische Zugriffsdaten (z. B. IP-Adresse)
+        an die jeweiligen Anbieter übertragen werden. Diese Einbindungen dienen
+        ausschließlich der Darstellung und werden im Rahmen der Übung transparent offengelegt.
+        Weitere Details finden Sie im Abschnitt „Datenschutz“.
+      </p>
+    </div>
+  </div>
+</section>
+
+      <!-- Task 4 & 5: License + Privacy -->
+      <section id="license" class="py-24 px-6 bg-slate-900 text-slate-100 border-y border-slate-800">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-3xl font-bold mb-10 text-blue-400">
+      Software-Lizenz (EULA)
+    </h2>
+
+    <p class="text-slate-200 text-sm leading-relaxed">
+      Diese Endnutzer-Lizenzvereinbarung („EULA“) regelt die Nutzung der
+      Software <strong>„LudumLearn Studio“</strong>, bereitgestellt durch die
+      <strong>LudumLearn GmbH</strong>, Wien, Österreich.
+    </p>
+
+    <div class="mt-8 bg-slate-800/60 border border-slate-700 p-6 rounded-2xl">
+      <h3 class="font-bold text-slate-100">1. Lizenzumfang</h3>
+      <p class="mt-3 text-sm text-slate-200 leading-relaxed">
+        Mit dem Erwerb der Software erhält der Nutzer eine
+        <strong>nicht-exklusive, nicht übertragbare Werknutzungsbewilligung</strong>
+        im Sinne des österreichischen Urheberrechtsgesetzes (UrhG).
+        Die Lizenz berechtigt zur Installation und Nutzung auf bis zu
+        <strong>drei privaten Endgeräten</strong> innerhalb desselben Haushalts.
+      </p>
+    </div>
+
+    <div class="mt-6 bg-slate-800/60 border border-slate-700 p-6 rounded-2xl">
+      <h3 class="font-bold text-slate-100">2. Urheberrechte</h3>
+      <p class="mt-3 text-sm text-slate-200 leading-relaxed">
+        Sämtliche Rechte an der Software, einschließlich Quellcode,
+        Benutzeroberfläche, Grafiken und Dokumentation, verbleiben bei der
+        LudumLearn GmbH. Dem Nutzer werden ausschließlich die in dieser EULA
+        ausdrücklich eingeräumten Nutzungsrechte gewährt.
+      </p>
+    </div>
+
+    <div class="mt-6 bg-slate-800/60 border border-slate-700 p-6 rounded-2xl">
+      <h3 class="font-bold text-slate-100">3. Unzulässige Nutzungen</h3>
+      <ul class="mt-3 text-sm text-slate-200 space-y-2 list-disc pl-5">
+        <li>Weitergabe, Verkauf oder Vermietung der Software an Dritte</li>
+        <li>Vervielfältigung über den eingeräumten Lizenzumfang hinaus</li>
+        <li>Bearbeitung, Dekompilierung oder Reverse Engineering,
+            soweit dies nicht zwingend gesetzlich erlaubt ist</li>
+      </ul>
+    </div>
+
+    <div class="mt-6 bg-slate-800/60 border border-slate-700 p-6 rounded-2xl">
+      <h3 class="font-bold text-slate-100">4. Gewährleistung</h3>
+      <p class="mt-3 text-sm text-slate-200 leading-relaxed">
+        Es gelten die gesetzlichen Gewährleistungsrechte gemäß ABGB und KSchG.
+        Die LudumLearn GmbH übernimmt keine darüber hinausgehenden Zusicherungen
+        hinsichtlich der Fehlerfreiheit oder ununterbrochenen Verfügbarkeit
+        der Software.
+      </p>
+    </div>
+
+    <div class="mt-6 bg-slate-800/60 border border-slate-700 p-6 rounded-2xl">
+      <h3 class="font-bold text-slate-100">5. Haftung</h3>
+      <p class="mt-3 text-sm text-slate-200 leading-relaxed">
+        Die Haftung der LudumLearn GmbH ist auf Vorsatz und grobe Fahrlässigkeit
+        beschränkt, soweit dies gesetzlich zulässig ist.
+        Eine Haftung für leichte Fahrlässigkeit ist ausgeschlossen,
+        ausgenommen bei Personenschäden sowie bei Verletzung wesentlicher
+        Vertragspflichten, sofern zwingende Verbraucherrechte dem nicht
+        entgegenstehen.
+      </p>
+    </div>
+
+    <div class="mt-6 bg-slate-800/60 border border-slate-700 p-6 rounded-2xl">
+      <h3 class="font-bold text-slate-100">6. Schlussbestimmungen</h3>
+      <p class="mt-3 text-sm text-slate-200 leading-relaxed">
+        Es gilt österreichisches Recht unter Ausschluss der
+        Verweisungsnormen des internationalen Privatrechts.
+        Für Verbraucher gilt der gesetzliche Gerichtsstand.
+        Sollten einzelne Bestimmungen dieser EULA unwirksam sein,
+        bleiben die übrigen Bestimmungen unberührt.
+      </p>
+    </div>
+
+    <p class="mt-8 text-xs text-slate-400">
+      Hinweis: Diese Lizenzbedingungen stellen eine Übungsumsetzung dar
+      und ersetzen keine individuelle Rechtsberatung.
+    </p>
+  </div>
+</section>
+
+<section id="privacy" class="py-24 px-6 bg-white border-t border-slate-200">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-3xl font-extrabold text-slate-900 mb-6">
+      Datenschutzerklärung
+    </h2>
+
+    <p class="text-slate-700 leading-relaxed">
+      Der Schutz Ihrer personenbezogenen Daten ist der LudumLearn GmbH ein wichtiges Anliegen.
+      Wir verarbeiten Ihre Daten ausschließlich auf Grundlage der geltenden gesetzlichen
+      Bestimmungen (DSGVO, DSG, TKG 2021).
+    </p>
+
+    <h3 class="mt-8 font-bold text-slate-900">1. Verantwortlicher</h3>
+    <p class="mt-2 text-slate-700">
+      LudumLearn GmbH<br>
+      Wien, Österreich<br>
+      E-Mail: office@ludumlearn.example
+    </p>
+
+    <h3 class="mt-6 font-bold text-slate-900">2. Zwecke der Datenverarbeitung</h3>
+    <ul class="mt-2 list-disc pl-6 text-slate-700 space-y-1">
+      <li>Bereitstellung und Darstellung dieser Website</li>
+      <li>Bearbeitung von Kontaktanfragen (gemocktes Kontaktformular)</li>
+      <li>Dokumentation und rechtliche Absicherung im Rahmen der Lehrveranstaltung</li>
+    </ul>
+
+    <h3 class="mt-6 font-bold text-slate-900">3. Rechtsgrundlagen</h3>
+    <ul class="mt-2 list-disc pl-6 text-slate-700 space-y-1">
+      <li>Art. 6 Abs. 1 lit. b DSGVO (Vertrag bzw. vorvertragliche Maßnahmen)</li>
+      <li>Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an sicherem Betrieb)</li>
+    </ul>
+
+    <h3 class="mt-6 font-bold text-slate-900">4. Hosting & technische Infrastruktur</h3>
+    <p class="mt-2 text-slate-700 leading-relaxed">
+      Diese Website wird als statische Seite über GitHub Pages bereitgestellt.
+      Beim Aufruf der Seite können technisch notwendige Zugriffsdaten
+      (z. B. IP-Adresse, Zeitpunkt des Zugriffs) verarbeitet werden.
+    </p>
+
+    <h3 class="mt-6 font-bold text-slate-900">5. Cookies</h3>
+    <p class="mt-2 text-slate-700 leading-relaxed">
+      Auf dieser Website werden ausschließlich technisch notwendige Cookies verwendet.
+      Analyse- oder Marketing-Cookies kommen nicht zum Einsatz.
+      Etwaige Cookie-Funktionalitäten sind im Rahmen der Übung lediglich gemockt.
+    </p>
+
+    <h3 class="mt-6 font-bold text-slate-900">6. Einbindung externer Dienste</h3>
+    <p class="mt-2 text-slate-700 leading-relaxed">
+      Zur Darstellung der Website werden externe Ressourcen (z. B. Google Fonts,
+      Tailwind CSS CDN) eingebunden. Dabei kann es zur Übermittlung Ihrer IP-Adresse
+      an die jeweiligen Anbieter kommen. Diese Einbindungen dienen ausschließlich
+      der Darstellung und Gestaltung der Website.
+    </p>
+
+    <h3 class="mt-6 font-bold text-slate-900">7. Speicherdauer</h3>
+    <p class="mt-2 text-slate-700 leading-relaxed">
+      Personenbezogene Daten werden nur so lange gespeichert, wie dies für die
+      genannten Zwecke erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen.
+    </p>
+
+    <h3 class="mt-6 font-bold text-slate-900">8. Ihre Rechte</h3>
+    <ul class="mt-2 list-disc pl-6 text-slate-700 space-y-1">
+      <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
+      <li>Recht auf Berichtigung (Art. 16 DSGVO)</li>
+      <li>Recht auf Löschung (Art. 17 DSGVO)</li>
+      <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+      <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
+      <li>Recht auf Widerspruch (Art. 21 DSGVO)</li>
+    </ul>
+
+    <h3 class="mt-6 font-bold text-slate-900">9. Beschwerderecht</h3>
+    <p class="mt-2 text-slate-700 leading-relaxed">
+      Wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht
+      verstößt, haben Sie das Recht, sich bei der zuständigen Aufsichtsbehörde zu beschweren.
+      Zuständig in Österreich ist die Österreichische Datenschutzbehörde (DSB).
+    </p>
+
+    <p class="mt-10 text-xs text-slate-500">
+      Hinweis: Diese Datenschutzerklärung dient der Umsetzung einer Übungsaufgabe
+      und stellt keine individuelle Rechtsberatung dar.
+    </p>
+  </div>
+</section>
+
+      <!-- Accessibility Statement (Task 1) -->
+      
+  </div>
+</section>
+
+      <!-- Accessibility Statement (Task 1) -->
+      <section id="accessibility" class="bg-white py-16 px-6">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">
+      Barrierefreiheitserklärung
+    </h2>
+
+    <p class="mt-4 text-slate-700 max-w-4xl leading-relaxed">
+      Die LudumLearn GmbH ist bemüht, diese Website im Einklang mit den Anforderungen der
+      <strong>WCAG 2.2, Konformitätsstufe AA</strong>, barrierefrei zugänglich zu machen.
+      Diese Erklärung gilt für die Website (statische Single-Page) im Rahmen dieser Übung.
+    </p>
+
+    <div class="mt-8 grid md:grid-cols-2 gap-8">
+      <div class="bg-slate-50 border border-slate-100 rounded-3xl p-8">
+        <h3 class="font-extrabold text-slate-900 text-lg">Stand der Vereinbarkeit</h3>
+        <p class="mt-3 text-sm text-slate-700 leading-relaxed">
+          Diese Website ist nach bestem Wissen und Gewissen
+          <strong>weitgehend mit WCAG 2.2 AA vereinbar</strong>. Die Umsetzung umfasst u. a.
+          semantische Struktur, ausreichenden Kontrast, Tastaturbedienbarkeit und sichtbare
+          Fokus-Indikatoren.
+        </p>
+
+        <h4 class="mt-6 font-bold text-slate-900 text-sm">Umgesetzte Maßnahmen</h4>
+        <ul class="mt-3 text-sm text-slate-700 space-y-2 list-disc pl-5">
+          <li>Skip-Link („Zum Inhalt springen“)</li>
+          <li>Semantische Bereiche (nav, main, section, header, footer)</li>
+          <li>Alt-Texte für Bilder</li>
+          <li>Fokus-Indikator für Tastaturbedienung</li>
+          <li>Berücksichtigung von „prefers-reduced-motion“</li>
+        </ul>
       </div>
 
-      <section
-        id="reviewer-section"
-        class="bg-slate-100 py-24 px-6 border-b-8 border-red-600"
+      <div class="bg-slate-50 border border-slate-100 rounded-3xl p-8">
+        <h3 class="font-extrabold text-slate-900 text-lg">Nicht barrierefreie Inhalte</h3>
+        <p class="mt-3 text-sm text-slate-700 leading-relaxed">
+          Im Rahmen der Übung werden externe Inhalte (z. B. Symbolbilder von Unsplash,
+          externe CDNs) eingebunden. Für die Barrierefreiheit dieser externen Ressourcen
+          kann keine Garantie übernommen werden. Außerdem sind einzelne Prozesse (z. B.
+          Checkout, Tracking, Cookies) ausdrücklich <strong>gemockt</strong>.
+        </p>
+
+        <h4 class="mt-6 font-bold text-slate-900 text-sm">Feedback & Kontakt</h4>
+        <p class="mt-3 text-sm text-slate-700 leading-relaxed">
+          Wenn Ihnen Barrieren auffallen, melden Sie sich bitte bei uns:
+          <strong>accessibility@ludumlearn.at</strong> (gemockt).
+          Wir bemühen uns, Ihr Anliegen zeitnah zu prüfen.
+        </p>
+
+        <p class="mt-6 text-xs text-slate-500">
+          Stand dieser Erklärung: 01.01.2026
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 bg-white border border-slate-100 rounded-3xl p-8">
+      <h3 class="font-extrabold text-slate-900 text-lg">Erstellung & Prüfung</h3>
+      <p class="mt-3 text-sm text-slate-700 leading-relaxed">
+        Die Bewertung erfolgte im Rahmen der Übung anhand manueller Prüfungen (Tastatur,
+        Fokus, Struktur) sowie mit gängigen Prüfwerkzeugen (z. B. WAVE, AXE DevTools).
+      </p>
+      <p class="mt-4 text-xs text-slate-500">
+        Hinweis: Diese Erklärung ist eine Übungsumsetzung und ersetzt keine Rechtsberatung.
+      </p>
+    </div>
+  </div>
+</section>
+
+      <!-- Reviewer Section (optional, for graders) -->
+      
+
+      <!-- Task 6: Impressum & Urheberrecht (Fixed with required Austrian details) -->
+      <footer
+        id="contact"
+        class="bg-white border-t border-slate-200 py-20 px-6 text-left"
       >
-        <div
-          class="max-w-4xl mx-auto bg-white p-12 shadow-2xl rounded-2xl border border-slate-200"
-        >
-          <h2
-            class="text-3xl font-black mb-10 border-b-4 border-red-600 pb-4 text-slate-800 uppercase italic"
-          >
-            Business-Konzept & Compliance (Defense)
-          </h2>
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
+          <!-- Impressum (§ 24 MedG / § 5 ECG) -->
+          <div class="text-left">
+            <h2 class="text-2xl font-extrabold text-slate-900">Impressum</h2>
 
-          <div class="space-y-12 leading-relaxed text-sm">
-            <div>
-              <h3 class="font-bold text-red-600 mb-2 border-b uppercase">
-                Aufgabe 0: Unternehmensdefinition & Geschäftsmodell
-              </h3>
-              <p class="text-slate-700">
-                <strong>Produkt:</strong> <em>LudumLearn World</em> –
-                Bildungssoftware für Kinder (4-10 Jahre).<br />
-                <strong>Unternehmen:</strong> LudumLearn GmbH, 1040 Wien. 5
-                Mitarbeiter.<br />
-                <strong>Modell:</strong> Hybrid aus
-                <strong>Freemium</strong> und <strong>Premium-Abo</strong> (€
-                9,90/Monat).
-              </p>
-            </div>
+            <p class="mt-4 text-sm text-slate-700 leading-relaxed">
+              <strong>Medieninhaber und Herausgeber:</strong> LudumLearn GmbH (gemockt)<br />
+              <strong>Sitz:</strong> Wien, Österreich
+            </p>
 
-            <div>
-              <h3 class="font-bold text-red-600 mb-2 border-b uppercase">
-                Aufgabe 2: Urheberrecht (Medienintegration)
-              </h3>
-              <p class="text-slate-700">
-                Zur Erfüllung der Aufgabe wurden **sechs Medienarten**
-                integriert:
-                <br />1. <strong>Bilder:</strong> Unsplash Fotografie
-                (Hero/Demo). <br />2. <strong>Grafiken:</strong> Firmen-Logos
-                als <strong>Inline-SVG</strong>. <br />3.
-                <strong>Video:</strong> HTML5 Video-Tag (W3Schools Sample).
-                <br />4. <strong>Audio:</strong> Sound-Logo (MP3) via JavaScript
-                (Soundjay). <br />5. <strong>Schriftarten:</strong> Plus Jakarta
-                Sans (Google Fonts, SIL OFL). <br />6.
-                <strong>Texte:</strong> Eigenentwicklungen der LudumLearn GmbH.
-                Lizenzen sind im Impressum dokumentiert (UrhG-konform).
-              </p>
-            </div>
+            <p class="mt-4 text-sm text-slate-700 leading-relaxed">
+              <strong>Anschrift:</strong><br />
+              Musterstraße 12<br />
+              1010 Wien<br />
+              Österreich
+            </p>
 
-            <div>
-              <h3 class="font-bold text-red-600 mb-2 border-b uppercase">
-                Gesetzliche Compliance (Aufgaben 1, 3, 4, 5, 6)
-              </h3>
-              <div class="text-slate-700 space-y-3">
-                <p>
-                  <strong>Barrierefreiheit (T1):</strong> WCAG 2.2 AA
-                  Konformität durch semantisches HTML und Tastaturbedienbarkeit.
-                </p>
-                <p>
-                  <strong>Markenrecht (T3):</strong> Drei Markenformen (Wort,
-                  Bild, Form) in Nizza-Klassen 9 & 41.
-                </p>
-                <p>
-                  <strong>Lizenz & Haftung (T4):</strong>
-                  Werknutzungsbewilligung (§ 24 UrhG) und KSchG-konforme
-                  Haftungsklauseln.
-                </p>
-                <p>
-                  <strong>Datenschutz (T5):</strong> DSGVO-konforme Erklärung
-                  inkl. Hinweis auf Aufsichtsbehörde (DSB).
-                </p>
-                <p>
-                  <strong>Impressum (T6):</strong> Offenlegung gemäß § 5 ECG und
-                  § 24 Mediengesetz inkl. Blattlinie.
-                </p>
+            <p class="mt-4 text-sm text-slate-700 leading-relaxed">
+              <strong>Unternehmensgegenstand:</strong> Entwicklung und Vertrieb von Lernsoftware und digitalen Lernspielen.
+            </p>
+
+            <p class="mt-4 text-sm text-slate-700 leading-relaxed">
+              <strong>Firmenbuchnummer (FN):</strong> 123456a (gemockt)<br />
+              <strong>Firmenbuchgericht:</strong> Handelsgericht Wien (gemockt)<br />
+              <strong>UID-Nr.:</strong> ATU12345678 (gemockt)
+            </p>
+
+            <p class="mt-4 text-sm text-slate-700 leading-relaxed">
+              <strong>Geschäftsführung:</strong> Max Mustermann (gemockt)
+            </p>
+
+            <p class="mt-4 text-sm text-slate-700 leading-relaxed">
+              <strong>Kontakt:</strong><br />
+              E-Mail: office@ludumlearn.at (gemockt)<br />
+              Telefon: +43 1 234 56 78 (gemockt)
+            </p>
+
+            <p class="mt-4 text-sm text-slate-700 leading-relaxed">
+              <strong>Zuständige Kammer:</strong> Wirtschaftskammer Österreich (WKO) – Fachgruppe IT (gemockt)<br />
+              <strong>Aufsichtsbehörde:</strong> Magistratisches Bezirksamt (gemockt)
+            </p>
+
+            <p class="mt-4 text-sm text-slate-700 leading-relaxed">
+              <strong>Anwendbare Rechtsvorschriften:</strong> Gewerbeordnung (GewO) (Hinweis; gemockt)
+            </p>
+
+            <p class="mt-4 text-sm text-slate-700 leading-relaxed">
+              <strong>Blattlinie (§ 25 MedienG):</strong> Informationen und Marketing zu Produkten und Dienstleistungen der
+              LudumLearn GmbH sowie Inhalte rund um Bildung und digitale Lernmethoden.
+            </p>
+
+            <p class="mt-6 text-xs text-slate-500 leading-relaxed">
+              <strong>Hinweis zur Übung:</strong> Diese Website ist eine statische Übungsumsetzung. Bestell-, Zahlungs-,
+              Cookie- und Analyseprozesse sind (sofern erwähnt) gemockt. Angaben zu FN, UID, Geschäftsführung,
+              E-Mail und Telefonnummern sind bewusst fiktiv.
+            </p>
+          </div>
+
+          <!-- Contact Form (mocked) -->
+          <div class="text-left">
+            <h2 class="text-2xl font-extrabold text-slate-900">Kontakt</h2>
+            <p class="mt-4 text-sm text-slate-700 leading-relaxed">
+              Dieses Formular ist eine <strong>Mock-Implementierung</strong>. Es
+              werden keine Daten tatsächlich versendet.
+            </p>
+
+            <form class="mt-8 space-y-4" aria-label="Kontaktformular">
+              <div>
+                <label for="name" class="block text-sm font-bold text-slate-700"
+                  >Name</label
+                >
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  class="mt-2 w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-blue-600"
+                  placeholder="Max Mustermann"
+                />
               </div>
+
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-bold text-slate-700"
+                  >E-Mail</label
+                >
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  class="mt-2 w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-blue-600"
+                  placeholder="max@example.at"
+                />
+              </div>
+
+              <div>
+                <label
+                  for="message"
+                  class="block text-sm font-bold text-slate-700"
+                  >Nachricht</label
+                >
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  class="mt-2 w-full border border-slate-200 rounded-xl px-4 py-3 focus:border-blue-600"
+                  placeholder="Ihre Nachricht (gemockt)"
+                ></textarea>
+              </div>
+
+              <button
+                type="button"
+                onclick="mockSubmit()"
+                class="bg-blue-600 text-white px-6 py-3 rounded-2xl font-semibold hover:bg-blue-700 transition shadow-lg"
+              >
+                Nachricht senden (Mock)
+              </button>
+
+              <p
+                id="mock-result"
+                class="mt-4 text-sm font-semibold text-emerald-700 hidden"
+                aria-live="polite"
+              >
+                Danke! (Mock) — Ihre Nachricht wurde simuliert.
+              </p>
+            </form>
+
+            <div class="mt-10 pt-8 border-t border-slate-200">
+              <h3 class="text-lg font-extrabold text-slate-900">
+                Barrierefreiheit
+              </h3>
+              <p class="mt-3 text-sm text-slate-700 leading-relaxed">
+                Wir bemühen uns um WCAG 2.2 AA-Konformität. Feedback:
+                <strong>accessibility@ludumlearn.at</strong> (gemockt).
+              </p>
             </div>
           </div>
         </div>
-      </section>
+
+        <div
+          class="mt-16 border-t border-slate-200 pt-8 max-w-7xl mx-auto text-xs text-slate-500 flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+        >
+          <p>© <span id="year"></span> LudumLearn GmbH — Wien, Österreich</p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#license" class="hover:text-blue-600 transition">Lizenz</a>
+            <a href="#privacy" class="hover:text-blue-600 transition"
+              >Datenschutz</a
+            >
+            <a href="#media" class="hover:text-blue-600 transition"
+              >Medien & Lizenzen</a
+            >
+            <a href="#accessibility" class="hover:text-blue-600 transition"
+              >Barrierefreiheit</a
+            >
+          </div>
+        </div>
+      </footer>
     </main>
-  </body>
+
+    <script>
+      // Footer year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Mock submit
+      function mockSubmit() {
+        const result = document.getElementById("mock-result");
+        result.classList.remove("hidden");
+        result.focus?.();
+      }
+
+      // Mock brand sound
+      function playBrandSound() {
+        // Simple beep using Web Audio (no external media)
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.type = "sine";
+          o.frequency.value = 523.25; // C5
+          g.gain.value = 0.06;
+          o.connect(g);
+          g.connect(ctx.destination);
+          o.start();
+          setTimeout(() => {
+            o.stop();
+            ctx.close();
+          }, 180);
+        } catch (e) {
+          // Fallback: do nothing
+        }
+      }
+    </script>
+  
+<!-- ================================================================ -->
+<!-- BEGINN PRÜFUNGSBEREICH – NICHT TEIL DES WEBSHOPS (OPTION B) ===== -->
+<!-- ================================================================ -->
+<section
+        id="reviewer-section"
+        class="bg-slate-100 py-24 px-6 border-t border-slate-200"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div class="bg-white border border-slate-100 rounded-3xl p-10 shadow">
+            <h2 class="text-2xl font-extrabold text-slate-900 text-left">
+              Hinweise für Prüfer:innen
+            </h2>
+            <p class="mt-4 text-slate-700 leading-relaxed text-left">
+              Der folgende Abschnitt ist <strong>nicht Teil des simulierten Webshops</strong>,
+              sondern dient ausschließlich der Bewertung im Rahmen der Lehrveranstaltung.
+              Angaben wie Firmenbuchnummern, UID, E-Mail-Adressen und Telefonnummern sind bewusst gemockt.
+            </p>
+
+            <div class="mt-10 grid md:grid-cols-2 gap-8 text-left">
+              <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6">
+                <h3 class="font-extrabold text-slate-900">Finale Abgabe-Checkliste</h3>
+                <ul class="mt-4 text-sm text-slate-700 space-y-2 list-disc pl-5">
+                  <li>Statische Website (GitHub Pages) erreichbar bis Semesterende</li>
+                  <li>Interne Navigation funktioniert (Ankerlinks)</li>
+                  <li>Barrierefreiheit: Tastaturbedienung, Fokus sichtbar, Kontrast ausreichend</li>
+                  <li>Alt-Texte vorhanden (Bilder)</li>
+                  <li>Barrierefreiheitserklärung vorhanden</li>
+                  <li>Medien & Lizenzen dokumentiert (Bilder, Schrift, Icons, Audio, Texte)</li>
+                  <li>Marke: 3 unterschiedliche Markenformen + Nizza-Klassen</li>
+                  <li>Software-Lizenz (EULA): Nutzungsrechte, Rechtevorbehalt, Haftung</li>
+                  <li>Datenschutzerklärung: DSGVO-Details, Cookies (Mock), externe Dienste</li>
+                  <li>Kontaktformular vorhanden (Mock) + Impressum gemäß MedienG/ECG</li>
+                </ul>
+              </div>
+
+              <div class="bg-slate-50 border border-slate-100 rounded-2xl p-6">
+                <h3 class="font-extrabold text-slate-900">Zuordnung zu den Aufgaben</h3>
+                <p class="mt-3 text-sm text-slate-700 leading-relaxed">
+                  Die Umsetzung ist in der Single-Page wie folgt strukturiert:
+                </p>
+                <ul class="mt-4 text-sm text-slate-700 space-y-2 list-disc pl-5">
+                  <li><strong>Aufgabe 0:</strong> Abschnitt „About“ (Produkt, Unternehmen, Geschäftsmodell)</li>
+                  <li><strong>Aufgabe 1:</strong> Abschnitt „Barrierefreiheitserklärung“</li>
+                  <li><strong>Aufgabe 2:</strong> Abschnitt „Medien & Lizenzen“</li>
+                  <li><strong>Aufgabe 3:</strong> Abschnitt „Marke“ (3 Markenformen + Nizza-Klassen)</li>
+                  <li><strong>Aufgabe 4:</strong> Abschnitt „Software-Lizenz (EULA)“</li>
+                  <li><strong>Aufgabe 5:</strong> Abschnitt „Datenschutzerklärung“</li>
+                  <li><strong>Aufgabe 6:</strong> Footer: „Impressum“ + „Kontakt“</li>
+                </ul>
+                <p class="mt-6 text-xs text-slate-500">
+                  Hinweis: Markenrecherche (EUIPO/TMview etc.) und Tool-Prüfungen (WAVE/AXE) werden im Rahmen der Übung
+                  als Prozess verstanden; diese Seite demonstriert die Umsetzung in einer statischen Abgabe.
+                </p>
+              </div>
+            </div>
+
+            <p class="mt-10 italic font-bold text-slate-700 text-left">
+              Der Code ist für GitHub Pages optimiert (statische Single-Page mit interner Navigation).
+            </p>
+          </div>
+        </div>
+      </section>
+<!-- ================================================================ -->
+<!-- ENDE PRÜFUNGSBEREICH =========================================== -->
+<!-- ================================================================ -->
+
+</body>
 </html>
